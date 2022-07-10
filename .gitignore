@@ -1,0 +1,5 @@
+# Ignore all prettier files
+*.prettierrc
+
+# Ignore flowchart
+Bankist-flowchart.png
