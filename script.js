@@ -1,13 +1,13 @@
-'use strict';
+"use strict";
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // BANKIST APP
 
 /////////////////////////////////////////////////
-// Create data for each account:
+// ACCOUNTS
 const account1 = {
-  owner: 'Alena Fleming',
+  owner: "Alena Fleming",
   // Monetary amount of each account movement:
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   // Interest rate. Calculated in percentage (%):
@@ -17,23 +17,23 @@ const account1 = {
 
   // Date and time for each account movement. Calculated later using JavaScript's built-in "Intl.DateTimeFormat" object that enables language-sensitive date and time formatting:
   movementsDates: [
-    '2019-11-18T21:31:17.178Z',
-    '2019-12-23T07:42:02.383Z',
-    '2020-01-28T09:15:04.904Z',
-    '2020-04-01T10:17:24.185Z',
-    '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    "2019-11-18T21:31:17.178Z",
+    "2019-12-23T07:42:02.383Z",
+    "2020-01-28T09:15:04.904Z",
+    "2020-04-01T10:17:24.185Z",
+    "2020-05-08T14:11:59.604Z",
+    "2020-05-27T17:01:17.194Z",
+    "2020-07-11T23:36:17.929Z",
+    "2020-07-12T10:51:36.790Z",
   ],
   // The account currency here will be used by our formatCur function later to format to the correct local currency:
-  currency: 'EUR',
+  currency: "EUR",
   // Locale will be used to both format currency and to format the correct date and time in our account:
-  locale: 'pt-PT',
+  locale: "pt-PT",
 };
 
 const account2 = {
-  owner: 'Maisey Charlton',
+  owner: "Maisey Charlton",
   // Monetary amount of each account movement:
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   // Interest rate. Calculated in percentage (%):
@@ -43,54 +43,90 @@ const account2 = {
 
   // Date and time for each account movement. Calculated later using JavaScript's built-in "Intl.DateTimeFormat" object that enables language-sensitive date and time formatting:
   movementsDates: [
-    '2019-11-01T13:15:33.035Z',
-    '2019-11-30T09:48:16.867Z',
-    '2019-12-25T06:04:23.907Z',
-    '2020-01-25T14:18:46.235Z',
-    '2020-02-05T16:33:06.386Z',
-    '2022-02-16T14:43:26.374Z',
-    '2022-02-19T18:49:59.371Z',
-    '2022-02-22T12:01:20.894Z',
+    "2019-11-01T13:15:33.035Z",
+    "2019-11-30T09:48:16.867Z",
+    "2019-12-25T06:04:23.907Z",
+    "2020-01-25T14:18:46.235Z",
+    "2020-02-05T16:33:06.386Z",
+    "2022-02-16T14:43:26.374Z",
+    "2022-02-19T18:49:59.371Z",
+    "2022-02-22T12:01:20.894Z",
   ],
   // The account currency here will be used by our formatCur function later to format to the correct local currency:
-  currency: 'USD',
+  currency: "USD",
   // Locale will be used to both format currency and to format the correct date and time in our account:
-  locale: 'en-US',
+  locale: "en-US",
+};
+
+const account3 = {
+  owner: "Bradley Smith",
+  movements: [200, -200, 340, -300, -20, 50, 400, -460],
+  interestRate: 0.7,
+  pin: 3333,
+  movementsDates: [
+    "2019-11-01T13:15:33.035Z",
+    "2019-11-30T09:48:16.867Z",
+    "2019-12-25T06:04:23.907Z",
+    "2020-01-25T14:18:46.235Z",
+    "2020-02-05T16:33:06.386Z",
+    "2022-02-16T14:43:26.374Z",
+    "2022-02-19T18:49:59.371Z",
+    "2022-12-22T12:01:20.894Z",
+  ],
+  currency: "USD",
+  locale: "en-US",
+};
+
+const account4 = {
+  owner: "Sarah Louise Newton",
+  movements: [430, 1000, 700, 50, 90],
+  interestRate: 1,
+  pin: 4444,
+  movementsDates: [
+    "2019-11-01T13:15:33.035Z",
+    "2019-11-30T09:48:16.867Z",
+    "2019-12-25T06:04:23.907Z",
+    "2020-01-25T14:18:46.235Z",
+    "2022-11-22T19:09:35.894Z",
+  ],
+  currency: "USD",
+  locale: "en-US",
 };
 
 // Create "accounts" array containing all our individual accounts:
-const accounts = [account1, account2];
+const accounts = [account1, account2, account3, account4];
 
 /////////////////////////////////////////////////
-// DOM Elements assigned to easy-to-use variables
-const labelWelcome = document.querySelector('.welcome');
-const labelDate = document.querySelector('.date');
-const labelBalance = document.querySelector('.balance__value');
-const labelSumIn = document.querySelector('.summary__value--in');
-const labelSumOut = document.querySelector('.summary__value--out');
-const labelSumInterest = document.querySelector('.summary__value--interest');
-const labelTimer = document.querySelector('.timer');
+// DOM ELEMENTS
+const labelWelcome = document.querySelector(".welcome");
+const labelDate = document.querySelector(".date");
+const labelBalance = document.querySelector(".balance__value");
+const labelSumIn = document.querySelector(".summary__value--in");
+const labelSumOut = document.querySelector(".summary__value--out");
+const labelSumInterest = document.querySelector(".summary__value--interest");
+const labelTimer = document.querySelector(".timer");
 
-const containerApp = document.querySelector('.app');
-const containerMovements = document.querySelector('.movements');
+const containerApp = document.querySelector(".app");
+const containerMovements = document.querySelector(".movements");
 
-const btnLogin = document.querySelector('.login__btn');
-const btnTransfer = document.querySelector('.form__btn--transfer');
-const btnLoan = document.querySelector('.form__btn--loan');
-const btnClose = document.querySelector('.form__btn--close');
-const btnSort = document.querySelector('.btn--sort');
+const btnLogin = document.querySelector(".login__btn");
+const btnTransfer = document.querySelector(".form__btn--transfer");
+const btnLoan = document.querySelector(".form__btn--loan");
+const btnClose = document.querySelector(".form__btn--close");
+const btnSort = document.querySelector(".btn--sort");
 
-const inputLoginUsername = document.querySelector('.login__input--user');
-const inputLoginPin = document.querySelector('.login__input--pin');
-const inputTransferTo = document.querySelector('.form__input--to');
-const inputTransferAmount = document.querySelector('.form__input--amount');
-const inputLoanAmount = document.querySelector('.form__input--loan-amount');
-const inputCloseUsername = document.querySelector('.form__input--user');
-const inputClosePin = document.querySelector('.form__input--pin');
+const inputLoginUsername = document.querySelector(".login__input--user");
+const inputLoginPin = document.querySelector(".login__input--pin");
+const inputTransferTo = document.querySelector(".form__input--to");
+const inputTransferAmount = document.querySelector(".form__input--amount");
+const inputLoanAmount = document.querySelector(".form__input--loan-amount");
+const inputCloseUsername = document.querySelector(".form__input--user");
+const inputClosePin = document.querySelector(".form__input--pin");
 
 /////////////////////////////////////////////////
-// Functions
-// Format account movmenets dates using date and locale:
+// FUNCTIONS
+
+// Format account movements' dates using date and locale:
 const formatMovementDate = function (date, locale) {
   // Calculate days passed using an input of 2 dates:
   const calcDaysPassed = (date1, date2) =>
@@ -101,38 +137,58 @@ const formatMovementDate = function (date, locale) {
   const daysPassed = calcDaysPassed(new Date(), date);
 
   // With our new daysPassed variable, create custom strings for each condition:
-  if (daysPassed === 0) return 'Today';
-  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed === 0) return "Today";
+  if (daysPassed === 1) return "Yesterday";
   if (daysPassed <= 7) return `${daysPassed} days ago`;
 
   // Using JS's built-in Intl.DateTimeFormat object, create a date and time that is language-sensitive. "locale" is our locale to use, like en-US, and "date" is our account movement date:
   return new Intl.DateTimeFormat(locale).format(date);
 };
 
-// A function for language-sensitive number formatting using JS's built-in Intl.NumberFormat object:
+// A helper function for language-sensitive number formatting using JS's built-in Intl.NumberFormat object:
 const formatCur = function (value, locale, currency) {
   return new Intl.NumberFormat(locale, {
-    style: 'currency',
+    style: "currency",
     currency: currency,
   }).format(value);
 };
 
+// H\elper function for sorting account movements by date:
+const sortMovements = function (movs, dates) {
+  const arrCombined = [];
+  const sortedMovs = [];
+  const sortedDates = [];
+
+  movs.forEach((el, i) => arrCombined.push([movs[i], dates[i]]));
+  // Sort movements smallest to largest:
+  arrCombined.sort((a, b) => a[0] - b[0]);
+  arrCombined.forEach((el) => {
+    // After sorting, add each movements to movs and each date to dates:
+    sortedMovs.push(el[0]);
+    sortedDates.push(el[1]);
+  });
+
+  return [sortedMovs, sortedDates];
+};
+
 const displayMovements = function (acc, sort = false) {
   // Clear movmenets text and set it to a string:
-  containerMovements.innerHTML = '';
+  containerMovements.innerHTML = "";
 
   // Sort movements by AMOUNT if sort = true, otherwise leave them as normal, which is sorted by TIME of deposit:
-  const movs = sort
-    ? acc.movements.slice().sort((a, b) => a - b)
-    : acc.movements;
+  const [movs, dates] = sort
+    ? sortMovements(acc.movements, acc.movementsDates)
+    : [acc.movements, acc.movementsDates];
 
   movs.forEach(function (mov, i) {
     // Add 'deposit' or 'withdrawal' to each movement:
-    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const type = mov > 0 ? "deposit" : "withdrawal";
 
     // Get each date from account data, then format it for locale:
     const date = new Date(acc.movementsDates[i]);
-    const displayDate = formatMovementDate(date, acc.locale);
+
+    // Display date for each account movement:
+    const displayDate = formatMovementDate(new Date(dates[i]), acc.locale);
 
     // Just like for the date, format each currency for locale:
     const formattedMov = formatCur(mov, acc.locale, acc.currency);
@@ -150,7 +206,7 @@ const displayMovements = function (acc, sort = false) {
     `;
 
     // Insert our newly created HTML into the DOM:
-    containerMovements.insertAdjacentHTML('afterbegin', html);
+    containerMovements.insertAdjacentHTML("afterbegin", html);
   });
 };
 
@@ -166,7 +222,7 @@ const calcDisplayBalance = function (acc) {
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
     // Get only positive account movements using Array.filter:
-    .filter(mov => mov > 0)
+    .filter((mov) => mov > 0)
     // Use Array.reduce to add all the movements we have filtered, thus getting the total incomes (positive values) from the account:
     .reduce((cumulative, nextMov) => cumulative + nextMov, 0);
   // Display total incomes, formatted for locale and currency:
@@ -174,7 +230,7 @@ const calcDisplaySummary = function (acc) {
 
   const out = acc.movements
     // Get only negative account movements using Array.filter:
-    .filter(mov => mov < 0)
+    .filter((mov) => mov < 0)
     // Like with incomes, use Array.reduce to add all the movements we have filtered, thus getting the total expenses (negative values) from the account:
     .reduce((cumulative, nextMov) => cumulative + nextMov, 0);
   // Display total expenses, formatted for locale and currency (Math.abs gets the absolute value of our negative number, thus making it positive):
@@ -182,11 +238,11 @@ const calcDisplaySummary = function (acc) {
 
   const interest = acc.movements
     // Get only positive account movements using Array.filter:
-    .filter(mov => mov > 0)
+    .filter((mov) => mov > 0)
     // Use Array.map to make a new array. Then, for each item (called deposit) in that array, return the interest rate of that item using the below calculation:
-    .map(deposit => (deposit * acc.interestRate) / 100)
+    .map((deposit) => (deposit * acc.interestRate) / 100)
     // Interest is only given if the movement is big enough. In our case, if the interest for that movement is less than 1%, it does not get added to the account:
-    .filter(int => int >= 1)
+    .filter((int) => int >= 1)
     // Add all elements, thus getting total interest:
     .reduce((acc, int) => acc + int, 0);
   // Display total interest earned, formatted for locale and currency:
@@ -198,9 +254,9 @@ const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
       .toLowerCase()
-      .split(' ')
-      .map(name => name[0])
-      .join('');
+      .split(" ")
+      .map((name) => name[0])
+      .join("");
   });
 };
 // Run createUsernames function for "accounts":
@@ -256,20 +312,20 @@ const startLogoutTimer = function () {
 // Create global variables we'll need later:
 let currentAccount, timer;
 
-btnLogin.addEventListener('click', function (e) {
+btnLogin.addEventListener("click", function (e) {
   // Prevent form from submitting:
   e.preventDefault();
 
   // From the "inputLoginUsername" DOM element we grabbed earlier, find the account that matches what the user typed in:
   currentAccount = accounts.find(
-    acc => acc.username === inputLoginUsername.value
+    (acc) => acc.username === inputLoginUsername.value
   );
 
   // Use short circuiting to check if account exists (?). If so, see if the account's pin value (as a string) matches the user's input:
   if (currentAccount?.pin === +inputLoginPin.value) {
     // If pin is valid, display UI and message. We get the user's first name by splitting the first value of the account owner property:
     labelWelcome.textContent = `Welcome back, ${
-      currentAccount.owner.split(' ')[0]
+      currentAccount.owner.split(" ")[0]
     }`;
     // Reveal account:
     containerApp.style.opacity = 100;
@@ -278,11 +334,11 @@ btnLogin.addEventListener('click', function (e) {
     const now = new Date();
     // Create options for time format. By default, the time is displayed like "May 15, 2045":
     const options = {
-      hour: 'numeric',
-      minute: 'numeric',
-      day: 'numeric',
-      month: 'long', // Can set 'numeric', 'long', or '2-digit'
-      year: 'numeric',
+      hour: "numeric",
+      minute: "numeric",
+      day: "numeric",
+      month: "long", // Can set 'numeric', 'long', or '2-digit'
+      year: "numeric",
       // weekday: 'long', // Can set 'numeric', 'long', 'short', or 'narrow'
     };
 
@@ -293,7 +349,7 @@ btnLogin.addEventListener('click', function (e) {
     ).format(now);
 
     // Clear input fields:
-    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginUsername.value = inputLoginPin.value = "";
     // Use HTMLElement.blur() to remove keyboard focus from the current element (in this case, the login fields):
     inputLoginPin.blur();
 
@@ -309,16 +365,16 @@ btnLogin.addEventListener('click', function (e) {
 });
 
 // Transfer money button
-btnTransfer.addEventListener('click', function (e) {
+btnTransfer.addEventListener("click", function (e) {
   e.preventDefault();
   // Get transfer value as a string:
   const amount = +inputTransferAmount.value;
   // Find transfer receiver account. "inputTransferTo" is the DOM element we grabbed earlier that's holding the text we type into "transfer to":
   const receiverAcc = accounts.find(
-    acc => acc.username === inputTransferTo.value
+    (acc) => acc.username === inputTransferTo.value
   );
   // After finding the account, clear input fields. On the user side, this appears as the text clearing after they finish their transfer:
-  inputTransferAmount.value = inputTransferTo.value = '';
+  inputTransferAmount.value = inputTransferTo.value = "";
 
   // If transfer amount is > 0, the receiver account exists, the current account has enough money, and receiver account username does NOT match current username, then the conditional "if" block runs:
   if (
@@ -346,14 +402,17 @@ btnTransfer.addEventListener('click', function (e) {
 });
 
 // Request loan button
-btnLoan.addEventListener('click', function (e) {
+btnLoan.addEventListener("click", function (e) {
   e.preventDefault();
 
   // Math.floor() returns the largest integer less than or equal to the given number. For example, if input is 5.95, return is 5:
   const amount = Math.floor(inputLoanAmount.value);
 
   // If loan is > 0, and account has a deposit at least 10% of the requested loan amount, then continue:
-  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((mov) => mov >= amount * 0.1)
+  ) {
     setTimeout(function () {
       // Add loan amount to current account:
       currentAccount.movements.push(amount);
@@ -370,11 +429,11 @@ btnLoan.addEventListener('click', function (e) {
     }, 2500);
   }
   // Clear loan text field:
-  inputLoanAmount.value = '';
+  inputLoanAmount.value = "";
 });
 
 // Close account button
-btnClose.addEventListener('click', function (e) {
+btnClose.addEventListener("click", function (e) {
   e.preventDefault();
 
   // If the account and pin entered match up with the logged-in account, then run block. inputClosePin.value is turned into a string with "+":
@@ -384,7 +443,7 @@ btnClose.addEventListener('click', function (e) {
   ) {
     // Use findIndex to return the first element in our "accounts" array that satisfies the condition. In this case, the first account that matches acc.username:
     const index = accounts.findIndex(
-      acc => acc.username === currentAccount.username
+      (acc) => acc.username === currentAccount.username
     );
 
     // Delete account from "accounts" array:
@@ -395,14 +454,14 @@ btnClose.addEventListener('click', function (e) {
   }
 
   // Clear text fields:
-  inputCloseUsername.value = inputClosePin.value = '';
+  inputCloseUsername.value = inputClosePin.value = "";
 });
 
 // Initial state for the "sorted" variable
 let sorted = false;
 
 // Sort button
-btnSort.addEventListener('click', function (e) {
+btnSort.addEventListener("click", function (e) {
   e.preventDefault();
   // Display current account movements opposite of "sorted", which is "true". In our displayMovements, this means sort my AMOUNT:
   displayMovements(currentAccount, !sorted);
